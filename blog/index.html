@@ -1,0 +1,36 @@
+---
+layout: default
+title: Blog
+description: CTF writeups, reverse engineering notes, and lab work.
+scripts:
+  - /assets/js/blog.js
+---
+<section class="wrap section blog">
+  <p class="mono"><span class="prompt">$</span> ls -lt ~/blog</p>
+  <h1>Writeups &amp; notes</h1>
+  <p class="lede">CTF writeups, my malware and reverse engineering journey, and things I break in the home lab.</p>
+
+  {% assign tags = site.tags | sort %}
+  <div class="filters" role="group" aria-label="Filter by tag">
+    <button type="button" class="chip" data-tag="" aria-pressed="true">all</button>
+    {% for t in tags %}<button type="button" class="chip" data-tag="{{ t[0] }}" aria-pressed="false">#{{ t[0] }} <span class="dim">{{ t[1].size }}</span></button>{% endfor %}
+  </div>
+
+  {% assign by_year = site.posts | group_by_exp: "p", "p.date | date: '%Y'" %}
+  {% for year in by_year %}
+  <h2 class="year" data-year>{{ year.name }}</h2>
+  <ul class="post-list full">
+    {% for post in year.items %}
+    <li data-tags="{{ post.tags | join: ' ' }}">
+      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%m-%d' }}</time>
+      <div class="pl-main">
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        {% if post.summary %}<p>{{ post.summary }}</p>{% endif %}
+      </div>
+      {% if post.category %}<span class="cat">{{ post.category }}</span>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% endfor %}
+  <p class="empty" hidden>No posts with that tag yet.</p>
+</section>

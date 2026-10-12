@@ -1,0 +1,25 @@
+title: David Augustin
+description: Security student at UGA. CTF writeups, reverse engineering notes, and projects.
+url: https://davidaugustin.dev
+baseurl: ""
+author:
+  name: David Augustin
+  email: davidaugustinwork@gmail.com
+github: dbaugustin
+linkedin: dbaugustin
+
+permalink: /blog/:year/:title/
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+plugins:
+  - jekyll-seo-tag
+
+exclude:
+  - README.md
+  - CNAME
+  - Gemfile
+  - Gemfile.lock
