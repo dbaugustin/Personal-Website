@@ -1,0 +1,21 @@
+---
+layout: default
+---
+{% assign words = content | number_of_words %}
+<article class="wrap post">
+  <a class="back" href="{{ '/blog/' | relative_url }}">&larr; cd ../blog</a>
+  <header class="post-head">
+    <p class="post-meta"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%Y-%m-%d' }}</time> · {{ words | divided_by: 220 | plus: 1 }} min read{% if page.category %} · {{ page.category }}{% endif %}</p>
+    <h1>{{ page.title }}</h1>
+    {% if page.summary %}<p class="lede">{{ page.summary }}</p>{% endif %}
+    {% if page.tags.size > 0 %}<ul class="tags">{% for t in page.tags %}<li><a href="{{ '/blog/' | relative_url }}?tag={{ t }}">#{{ t }}</a></li>{% endfor %}</ul>{% endif %}
+  </header>
+  {% if page.sample %}<p class="notice">Sample post. It shows how a writeup renders. Replace it or delete it before you publish.</p>{% endif %}
+  <div class="prose">
+{{ content }}
+  </div>
+  <nav class="post-nav" aria-label="More posts">
+    {% if page.previous %}<a href="{{ page.previous.url | relative_url }}"><span class="dim">older</span>{{ page.previous.title }}</a>{% else %}<span></span>{% endif %}
+    {% if page.next %}<a class="next" href="{{ page.next.url | relative_url }}"><span class="dim">newer</span>{{ page.next.title }}</a>{% endif %}
+  </nav>
+</article>

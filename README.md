@@ -1,7 +1,16 @@
-# David Augustin - Personal Website
+# davidaugustin.dev
 
-A personal portfolio showcasing my projects, clubs, hobbies, and skills as a CS student at the University of Georgia.
+Personal site and blog, built with Jekyll and served by GitHub Pages.
 
-Feel free to re-visit as the site will be updated with new projects and design changes over time.
+## Writing a post
 
-🌐 Live at: https://davidaugustin.dev
+1. Copy `_drafts/post-template.md` into `_posts/` as `YYYY-MM-DD-short-title.md`.
+2. Fill in the front matter (`title`, `category`, `tags`, `summary`) and write in Markdown.
+3. Commit and push. GitHub Pages rebuilds the site; the post shows up on `/blog/`.
+
+## Running locally
+
+```bash
+bundle install
+bundle exec jekyll serve
+```

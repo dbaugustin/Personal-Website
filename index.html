@@ -1,561 +1,144 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>David Augustin</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    .image-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 10px;
-      margin-top: 0.75rem;
-    }
-
-    .image-grid img {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      border-radius: 8px;
-      border: 1px solid #E2D5C0;
-    }
-
-    .card a {
-        color: #C4A97D;
-        text-decoration: underline;
-        text-underline-offset: 3px;
-    }
-
-    .card a:hover {
-        color: #4A3520;
-    }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: #F7F3ED;
-      color: #2C2416;
-      min-height: 100vh;
-    }
-
-    /* ── HERO ── */
-    .hero {
-      padding: 5rem 2rem 2.5rem;
-      text-align: center;
-      background: #F7F3ED;
-    }
-
-    .hero-name {
-      font-family: 'Lora', serif;
-      font-size: clamp(2.4rem, 5vw, 3.8rem);
-      font-weight: 400;
-      color: #2C2416;
-      letter-spacing: -0.5px;
-    }
-
-    .hero-divider {
-      width: 48px;
-      height: 2px;
-      background: #C4A97D;
-      margin: 1.5rem auto;
-      border-radius: 2px;
-    }
-
-    .hero-sub {
-      font-size: 0.9rem;
-      color: #7A6A52;
-      font-weight: 300;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    /* ── TABS BAR ── */
-    .tabs-bar {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 6px;
-      padding: 1rem 1.5rem 2.5rem;
-      background: #F7F3ED;
-    }
-
-    .tab-btn {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      padding: 0.45rem 1.2rem;
-      border-radius: 999px;
-      border: 1.5px solid #C4A97D;
-      background: transparent;
-      color: #7A6A52;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .tab-btn:hover {
-      background: #EDE4D5;
-      color: #4A3520;
-    }
-
-    .tab-btn.active {
-      background: #4A3520;
-      border-color: #4A3520;
-      color: #F7F3ED;
-    }
-
-    /* ── PANELS ── */
-    .panel {
-      display: none;
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 0 1.5rem 5rem;
-      animation: fadeUp 0.3s ease;
-    }
-
-    .panel.active { display: block; }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .panel h2 {
-      font-family: 'Lora', serif;
-      font-size: 1.7rem;
-      font-weight: 400;
-      color: #2C2416;
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid #DACEBC;
-    }
-
-    /* ── CARDS ── */
-    .card {
-      background: #FDF9F4;
-      border: 1px solid #E2D5C0;
-      border-radius: 12px;
-      padding: 1.25rem 1.4rem;
-      margin-bottom: 1rem;
-    }
-
-    .card h3 {
-      font-size: 1rem;
-      font-weight: 500;
-      color: #2C2416;
-      margin-bottom: 0.25rem;
-    }
-
-    .card .meta {
-      font-size: 0.78rem;
-      color: #C4A97D;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      margin-bottom: 0.5rem;
-    }
-
-    .card p {
-      font-size: 0.9rem;
-      color: #5A4C38;
-      line-height: 1.65;
-    }
-
-    /* ── TAGS ── */
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 0.8rem;
-    }
-
-    .tag {
-      font-size: 0.73rem;
-      font-weight: 500;
-      padding: 3px 10px;
-      border-radius: 999px;
-      background: #EDE4D5;
-      color: #6B5640;
-      border: 1px solid #D9C9AE;
-    }
-
-    /* ── SECTION LABEL ── */
-    .section-label {
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: #C4A97D;
-      margin: 1.5rem 0 0.65rem;
-    }
-
-    /* ── SKILLS GRID ── */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 10px;
-      margin-bottom: 0.5rem;
-    }
-
-    .skill-chip {
-      background: #FDF9F4;
-      border: 1px solid #E2D5C0;
-      border-radius: 8px;
-      padding: 0.6rem 0.9rem;
-      font-size: 0.83rem;
-      color: #4A3520;
-      font-weight: 500;
-      text-align: center;
-    }
-
-    /* ── HOBBIES ── */
-    .hobby-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      background: #FDF9F4;
-      border: 1px solid #E2D5C0;
-      border-radius: 12px;
-      padding: 1rem 1.2rem;
-      margin-bottom: 0.85rem;
-    }
-
-    .hobby-icon {
-      font-size: 1.4rem;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .hobby-text h3 {
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: #2C2416;
-    }
-
-    .hobby-text p {
-      font-size: 0.85rem;
-      color: #7A6A52;
-      margin-top: 3px;
-      line-height: 1.55;
-    }
-
-    /* ── ABOUT ── */
-    .about-intro {
-      font-family: 'Lora', serif;
-      font-size: 1.1rem;
-      font-style: italic;
-      color: #5A4C38;
-      line-height: 1.85;
-      margin-bottom: 1.5rem;
-    }
-
-    .about-list { list-style: none; }
-
-    .about-list li {
-      font-size: 0.9rem;
-      color: #4A3520;
-      padding: 0.55rem 0;
-      border-bottom: 1px solid #EDE4D5;
-      display: flex;
-      gap: 1rem;
-    }
-
-    .about-list li span:first-child {
-      color: #C4A97D;
-      font-weight: 500;
-      min-width: 90px;
-      font-size: 0.78rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding-top: 2px;
-    }
-
-    /* ── CONTACT ── */
-    .contact-link {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      background: #FDF9F4;
-      border: 1px solid #E2D5C0;
-      border-radius: 12px;
-      padding: 1rem 1.2rem;
-      margin-bottom: 0.85rem;
-      text-decoration: none;
-      color: #2C2416;
-      transition: background 0.15s;
-    }
-
-    .contact-link:hover { background: #EDE4D5; }
-
-    .contact-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 8px;
-      background: #EDE4D5;
-      border: 1px solid #D9C9AE;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      flex-shrink: 0;
-      font-weight: 600;
-      color: #4A3520;
-    }
-
-    .cl-label {
-      font-weight: 500;
-      font-size: 0.9rem;
-    }
-
-    .cl-val {
-      font-size: 0.82rem;
-      color: #7A6A52;
-      margin-top: 2px;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.78rem;
-      color: #C4A97D;
-      border-top: 1px solid #E2D5C0;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-name">David Augustin</div>
-    <div class="hero-divider"></div>
-    <div class="hero-sub">CS Student &nbsp;·&nbsp; Game Developer &nbsp;·&nbsp; 3D Modeller</div>
-  </div>
-
-  <!-- TABS -->
-  <div class="tabs-bar">
-    <button class="tab-btn active" onclick="showTab('about', this)">About Me</button>
-    <button class="tab-btn" onclick="showTab('projects', this)">Projects</button>
-    <button class="tab-btn" onclick="showTab('clubs', this)">Clubs & Activities</button>
-    <button class="tab-btn" onclick="showTab('hobbies', this)">Hobbies</button>
-    <button class="tab-btn" onclick="showTab('resume', this)">Resume & Skills</button>
-    <button class="tab-btn" onclick="showTab('contact', this)">Contact</button>
-  </div>
-
-  <!-- ── ABOUT ME ── -->
-  <div class="panel active" id="tab-about">
-    <h2>About Me</h2>
-    <p class="about-intro">
-      "Hi! I'm David — a Computer Science student who loves building new projects, solving problems,
-      and learning skills every day."
-    </p>
-    <ul class="about-list">
-      <li><span>School</span><span>University of Georgia</span></li>
-      <li><span>Major</span><span>Computer Science</span></li>
-      <li><span>Year</span><span>Junior (Class of 2027)</span></li>
-      <li><span>Based in</span><span>Athens, Georgia</span></li>
-      <li><span>Interests</span><span>Software Engineering, Cybersecurity, Game Development</span></li>
-    </ul>
-  </div>
-
-  <!-- ── PROJECTS ── -->
-  <div class="panel" id="tab-projects">
-    <h2>Projects</h2>
-
-    <div class="card">
-      <div class="meta">JavaFX Image Gallery</div>
-      <h3>GalleryApp — JavaFX iTunes Search API Image Gallery</h3>
-      <p>Built a JavaFX GUI that retrieves and displays images from the iTunes Search API using asynchronous HTTP requests 
-        and JSON parsing for dynamic search results. Designed an interactive UI with search filters, dropdowns, and a 
-        responsive image layout, applying OOP principles including inheritance, interfaces, and polymorphism throughout the app structure, 
-        with error handling and image loading optimizations for a smoother experience.
-      </p>
-      <div class="tags">
-        <span class="tag">Java</span>
-        <span class="tag">JavaFX</span>
-        <span class="tag">Multithreading</span>
-        <span class="tag">iTunes Search API</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="meta">Cybersecurity Home Lab</div>
-      <h3>Minecraft Home Lab Server with SIEM Integration</h3>
-      <p>Deployed a Linux-based Minecraft server with secure user authentication, automated server lifecycle management, and resource optimization. 
-        Integrated Wazuh SIEM for real-time monitoring of network activity, system performance, and logs.
-      </p>
-      <div class="tags">
-        <span class="tag">Networking</span>
-        <span class="tag">Access Control</span>
-        <span class="tag">Threat Mitigation</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="images/FlyingBroomstick.jpg" alt="Flying Broom Controller" style="width:100%; border-radius:8px; margin-bottom:0.75rem;">
-      <div class="meta">Embedded Software</div>
-      <h3>UGAhacks 11 Hackathon</h3>
-      <p>Collaborated with a team to build a remote controlled flying broomstick during a 36-hour magic-themed hackathon. 
-        I primarily developed the flight control software running on two ESP32 microcontrollers with peer-to-peer communication to transmit joystick input data in real time.
-      </p>
-      <div class="tags">
-        <span class="tag">ESP32</span>
-        <span class="tag">C++</span>
-        <span class="tag">Embedded Systems</span>
-        <span class="tag">Real-Time Systems</span>
-      </div>
+---
+layout: default
+title: David Augustin
+---
+<section class="wrap hero">
+  <div class="term" aria-label="Introduction">
+    <div class="term-bar"><span></span><span></span><span></span><em>~/whoami</em></div>
+    <div class="term-body">
+      <p class="mono"><span class="prompt">$</span> whoami</p>
+      <h1>David Augustin</h1>
+      <p class="role">Security student · CTF player · Learning reverse engineering</p>
+      <p class="intro">I study Computer Science at the University of Georgia and spend most of my time breaking things on purpose: CTFs with TheHackPack, firmware vulnerability research with ARES, and a home lab I use to practice detection. This site is where I keep my projects and write up what I learn.</p>
+      <p class="mono"><span class="prompt">$</span> <span class="cursor" aria-hidden="true"></span></p>
     </div>
   </div>
-
-  <!-- ── CLUBS & ACTIVITIES ── -->
-  <div class="panel" id="tab-clubs">
-    <h2>Clubs & Activities</h2>
-
-    <div class="card">
-      <div class="meta">2025 – Present · Member</div>
-      <h3>TheHackPack [University of Georgia]</h3>
-      <p>TheHackPack is a student led organization within UGA all about learning practical cybersecurity skills and competing in competitions.
-        At my time here I have joined numerous competitions including NCAE, HackTheMadness, and PicoCTF. Through these competitions I learned about
-        Network Security, Web Exploitation, Threat Intelligence, and more cybersecurity fundamentals. I have also gained real expereince using tools 
-        such as wire shark, burp suite, and kali linux.  
-      </p>
-    </div>
-
-    <div class="card">
-      <div class="meta">2026 – Present · Member</div>
-      <h3> Game Builders Club [University of Georgia]</h3>
-      <p> Game Builders Club is an organization dedicated to the entire game development process. 
-        Through this club I have found a team passionate about creating a tangible experience for others to enjoy. 
-        I am currently helping with creating 3D models and coding the base systems. 
-        You can wishlist our game on Steam here: <a href="https://store.steampowered.com/app/3782370/Plunderwake/" target="_blank">Plunderwake on Steam</a>
-      </p>
-    </div>
-
+  <div class="actions">
+    <a class="btn primary" href="{{ '/blog/' | relative_url }}">Read the blog</a>
+    <a class="btn" href="{{ '/Resume.pdf' | relative_url }}" download>Download resume</a>
+    <a class="btn" href="https://github.com/{{ site.github }}">GitHub</a>
   </div>
+</section>
 
-  <!-- ── HOBBIES ── -->
-  <div class="panel" id="tab-hobbies">
-    <h2>Hobbies</h2>
+<section class="wrap section" id="posts">
+  <h2><span class="prompt">~/</span>latest-posts</h2>
+  <ul class="post-list">
+    {% for post in site.posts limit:3 %}
+    <li>
+      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y-%m-%d' }}</time>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      {% if post.category %}<span class="cat">{{ post.category }}</span>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  <a class="more" href="{{ '/blog/' | relative_url }}">All posts &rarr;</a>
+</section>
 
-    <div class="hobby-row">
-      <div class="hobby-icon">🎮</div>
-        <div class="hobby-text">
-          <h3>3D Modelling / Art</h3>
-          <p>I have been 3D modelling for 2.5 years with Blender, and I specialize in character sculpting and building design.</p>
-          <div class="image-grid">
-            <img src="images/Pagoda.jpg" alt="Pagoda 3D model">
-            <img src="images/Kitsune.jpg" alt="Kitsune 3D model">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="hobby-row">
-      <div class="hobby-icon">📚</div>
-      <div class="hobby-text">
-        <h3>Reading</h3>
-        <p>Ever since my formative years I have enjoyed reading. I finished multiple fictional series
-        such as Percy Jackson & The Olympians and Artemis Fowl. I am now reading White Nights by Fyodor Dostoevsky!
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── RESUME & SKILLS ── -->
-  <div class="panel" id="tab-resume">
-    <h2>Resume & Skills</h2>
-
-    <div class="section-label">Languages</div>
-    <div class="skills-grid">
-      <div class="skill-chip">Python</div>
-      <div class="skill-chip">Java</div>
-      <div class="skill-chip">C</div>
-      <div class="skill-chip">JavaScript</div>
-      <div class="skill-chip">HTML / CSS</div>
-      <div class="skill-chip">SQL</div>
-      <div class="skill-chip">MATLAB</div>
-      <div class="skill-chip">R Project</div>
-    </div>
-
-    <div class="section-label">Frameworks & Tools</div>
-    <div class="skills-grid">
-      <div class="skill-chip">Excel</div>
-      <div class="skill-chip">Github</div>
-      <div class="skill-chip">MITRE ATT&CK</div>
-      <div class="skill-chip">Visual Studio Code</div>
-      <div class="skill-chip">OpenCTI</div>
-      <div class="skill-chip">NIST</div>
-      <div class="skill-chip">Wireshark</div>
-      <div class="skill-chip">SIEM</div>
-      <div class="skill-chip">Blender 3D</div>
-      <div class="skill-chip">Eclipse IDE</div>
-      <div class="skill-chip">Intellij IDEA</div>
-      <div class="skill-chip">Docker IDEA</div>
-      <div class="skill-chip">Unity IDEA</div>
-      <div class="skill-chip">ESP32</div>
-    </div>
-
-    <div class="section-label">Resume</div>
-    <div class="card">
-      <h3>Download my resume</h3>
-      <p style="margin-top: 0.3rem;">
-        
-      </p>
-      <div class="tags">
-        <!-- Change "resume.pdf" to your actual file name -->
-        <a href="Resume.pdf" class="tag" style="text-decoration:none;">📄 resume.pdf</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── CONTACT ── -->
-  <div class="panel" id="tab-contact">
-    <h2>Contact</h2>
-
-    <!-- Update each href with your real info -->
-    <a class="contact-link" href="mailto:davidaugustinwork@email.com">
-      <div class="contact-icon">✉️</div>
+<section class="wrap section" id="experience">
+  <h2><span class="prompt">~/</span>experience</h2>
+  <div class="entries">
+    <article class="entry">
+      <p class="when">Aug 2026 – present</p>
       <div>
-        <div class="cl-label">Email</div>
-        <div class="cl-val">davidaugustinwork@email.com</div>
+        <h3>Undergraduate Researcher, <a href="https://ares-uga.github.io/ARES-Website">Advanced Research in Exploitation &amp; Security</a></h3>
+        <ul>
+          <li>Contributing to an offline firmware vulnerability research pipeline in Python that runs authorized device images through static analysis, QEMU emulation, and local-LLM triage inside a no-egress sandbox, recording provenance and hashes for every image.</li>
+          <li>Helped design the reporting gate: a lead becomes a finding only after a demonstrated exploit, an independent refutation attempt, and human approval.</li>
+        </ul>
       </div>
-    </a>
-
-    <a class="contact-link" href="https://github.com/David-Brendan-Augustin" target="_blank">
-      <div class="contact-icon">GH</div>
+    </article>
+    <article class="entry">
+      <p class="when">2025 – present</p>
       <div>
-        <div class="cl-label">GitHub</div>
-        <div class="cl-val">github.com/David-Brendan-Augustin/David-Brendan-Augustin</div>
+        <h3>Competition Director, TheHackPack</h3>
+        <p class="sub">UGA's cybersecurity club</p>
+        <ul>
+          <li>Coordinate team formation and registration for 9+ regional and national competitions.</li>
+          <li>Lead beginner and advanced web exploitation workshops for 50+ members.</li>
+          <li>Defended a simulated hospital network in a live blue team exercise, triaging alerts and running incident response under time pressure.</li>
+        </ul>
       </div>
-    </a>
-
-    <a class="contact-link" href="https://www.linkedin.com/in/david-augustin-78907934a" target="_blank">
-      <div class="contact-icon">in</div>
+    </article>
+    <article class="entry">
+      <p class="when">2026 – present</p>
       <div>
-        <div class="cl-label">LinkedIn</div>
-        <div class="cl-val">linkedin.com/in/david-augustin-78907934a</div>
+        <h3>Projects Officer, Game Builders Club</h3>
+        <ul>
+          <li>Built a member intake survey and assigned 40 members to 8 cross-functional teams, balancing role coverage against each member's top-ranked pitches.</li>
+          <li>Modeling and building core systems for the club's current game, <a href="https://store.steampowered.com/app/3782370/Plunderwake/">Plunderwake</a>.</li>
+        </ul>
       </div>
-    </a>
+    </article>
+    <article class="entry">
+      <p class="when">Aug 2024 – Aug 2027</p>
+      <div>
+        <h3>B.S. Computer Science, University of Georgia</h3>
+        <ul>
+          <li>Directed study, Spring 2027: malware reverse engineering with Ghidra and debuggers, faculty-advised.</li>
+        </ul>
+      </div>
+    </article>
   </div>
+</section>
 
-  <footer>
-    &copy; 2026 David Augustin &nbsp;·&nbsp; Built with HTML, CSS & JS
-  </footer>
+<section class="wrap section" id="projects">
+  <h2><span class="prompt">~/</span>projects</h2>
+  <div class="projects">
+    <article class="project">
+      <p class="path">research/firmware-pipeline</p>
+      <h3>Firmware vulnerability pipeline</h3>
+      <p>Offline pipeline for ARES that takes firmware images through static analysis, QEMU emulation and local-LLM triage, with a human-approved reporting gate to keep false positives out.</p>
+      <p class="stack">Python · QEMU · local LLMs</p>
+    </article>
+    <article class="project">
+      <p class="path">homelab/minecraft-wazuh</p>
+      <h3>Home lab: dashboard + Wazuh SIEM</h3>
+      <p>Flask dashboard for a Dockerized Minecraft server, kept on localhost behind hashed-password auth and rate limiting. Custom Wazuh decoders and rules alert on brute-force logins, non-whitelisted joins and crashes, each verified by triggering it live.</p>
+      <p class="stack">Python · Flask · Docker · Wazuh</p>
+    </article>
+    <article class="project">
+      <p class="path">hackathons/flying-broom</p>
+      <h3>Flying Broom flight controller</h3>
+      <p>A flying broomstick built by a team of three at UGAHacks 11. I wrote the flight control software on two ESP32s, sending joystick input peer to peer in real time.</p>
+      <p class="stack">C · ESP32 · embedded</p>
+    </article>
+  </div>
+</section>
 
-  <script>
-    function showTab(name, btn) {
-      // hide all panels
-      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-      // deactivate all buttons
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      // show target panel
-      document.getElementById('tab-' + name).classList.add('active');
-      // mark button active
-      btn.classList.add('active');
-    }
-  </script>
-</body>
-</html>
+<section class="wrap section" id="awards">
+  <h2><span class="prompt">~/</span>scoreboard</h2>
+  <div class="table-wrap">
+    <table class="scores">
+      <thead><tr><th scope="col">rank</th><th scope="col">event</th><th scope="col">year</th></tr></thead>
+      <tbody>
+        <tr><td>3rd</td><td>CSAW CTF Qualifications</td><td>2026</td></tr>
+        <tr><td>4th</td><td>NCAE Cyber Games <span class="dim">(28/30 flags)</span></td><td>2026</td></tr>
+        <tr><td>8th</td><td>Hack The Madness</td><td>2026</td></tr>
+        <tr><td>9th</td><td>Raymond James CTF</td><td>2026</td></tr>
+        <tr><td>Top 500</td><td>National Cyber League, individual</td><td>2025</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="wrap section" id="skills">
+  <h2><span class="prompt">~/</span>skills</h2>
+  <dl class="skills">
+    <div><dt>Defense</dt><dd>Security monitoring, threat detection, incident response, forensics, threat intel, cloud security</dd></div>
+    <div><dt>Offense</dt><dd>Web exploitation, API testing, IDOR, XSS, penetration testing, reverse engineering</dd></div>
+    <div><dt>Tools</dt><dd>Wazuh, Splunk, Wireshark, Burp Suite, Ghidra, OpenCTI, MITRE ATT&amp;CK, NIST CSF</dd></div>
+    <div><dt>Systems</dt><dd>Linux, Docker, system administration, databases</dd></div>
+    <div><dt>Languages</dt><dd>Python, C, Java, SQL, MATLAB, R</dd></div>
+    <div><dt>Certs</dt><dd>Google Cybersecurity Certificate, CCSMM</dd></div>
+  </dl>
+  <p class="aside">Off the clock I sculpt characters and buildings in Blender and read a lot. Right now that's Dostoevsky's <i>White Nights</i>.</p>
+</section>
+
+<section class="wrap section" id="contact">
+  <h2><span class="prompt">~/</span>contact</h2>
+  <ul class="contact">
+    <li><span class="k">email</span><a class="v" href="mailto:davidaugustinwork@gmail.com">davidaugustinwork@gmail.com</a></li>
+    <li><span class="k">github</span><a class="v" href="https://github.com/{{ site.github }}">github.com/{{ site.github }}</a></li>
+    <li><span class="k">linkedin</span><a class="v" href="https://linkedin.com/in/{{ site.linkedin }}">linkedin.com/in/{{ site.linkedin }}</a></li>
+  </ul>
+</section>

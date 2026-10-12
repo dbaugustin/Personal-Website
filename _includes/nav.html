@@ -1,0 +1,9 @@
+<header class="topbar">
+  <a class="brand" href="{{ '/' | relative_url }}"><span class="prompt">david@augustin</span><span class="dim">:~$</span></a>
+  <nav class="nav" aria-label="Main">
+    <a href="{{ '/' | relative_url }}#projects">projects</a>
+    <a href="{{ '/' | relative_url }}#experience">experience</a>
+    <a href="{{ '/blog/' | relative_url }}"{% if page.url contains '/blog/' %} aria-current="page"{% endif %}>blog</a>
+    <a href="{{ '/Resume.pdf' | relative_url }}">resume.pdf</a>
+  </nav>
+</header>
