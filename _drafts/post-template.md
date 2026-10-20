@@ -1,6 +1,4 @@
 ---
-# To publish: copy this file into _posts/ as YYYY-MM-DD-short-title.md,
-# fill in the fields below, write the post, then commit and push.
 layout: post
 title: "Event name: challenge name"
 category: ctf          # ctf, reverse-engineering, or home-lab
