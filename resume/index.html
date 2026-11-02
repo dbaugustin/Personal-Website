@@ -1,0 +1,17 @@
+---
+layout: default
+title: Resume
+description: David Augustin's resume.
+scripts:
+  - https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js
+  - /assets/js/resume.js
+---
+<section class="wrap section resume">
+  <div class="resume-head">
+    <p class="mono"><span class="prompt">$</span> cat resume.pdf</p>
+    <a class="btn primary" href="{{ '/Resume.pdf' | relative_url }}" download="David-Augustin-Resume.pdf">Download PDF</a>
+  </div>
+  <div class="pdf" data-src="{{ '/Resume.pdf' | relative_url }}">
+    <p class="pdf-fallback">Loading resume… If it doesn't appear, <a href="{{ '/Resume.pdf' | relative_url }}">open the PDF directly</a>.</p>
+  </div>
+</section>

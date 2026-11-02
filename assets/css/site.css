@@ -206,3 +206,11 @@ h1, h2, h3 { text-wrap: balance; line-height: 1.25; }
   html { scroll-behavior: auto; }
   .cursor { animation: none; }
 }
+
+/* resume */
+.resume { padding-top: 3rem; }
+.resume-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin: .5rem 0 1.5rem; }
+.resume-head p { margin: 0; }
+.pdf { display: grid; gap: 1rem; }
+.pdf canvas { width: 100%; height: auto; border-radius: 6px; border: 1px solid var(--line); background: #fff; }
+.pdf-fallback { color: var(--muted); font-family: var(--mono); font-size: .9rem; }
