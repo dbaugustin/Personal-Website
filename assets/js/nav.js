@@ -8,9 +8,10 @@
   function update() {
     var line = window.innerHeight * 0.35;
     var active = 'top';
+    // The last section scrolled past stays marked, so scoreboard, skills
+    // and contact keep the marker on projects.
     sections.forEach(function (s) {
-      var r = s.getBoundingClientRect();
-      if (r.top <= line && r.bottom > line) active = s.id;
+      if (s.getBoundingClientRect().top <= line) active = s.id;
     });
     if (active === current) return;
     current = active;

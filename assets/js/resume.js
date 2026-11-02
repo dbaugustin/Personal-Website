@@ -5,7 +5,8 @@
   var doc;
   function render() {
     var width = box.clientWidth;
-    var ratio = window.devicePixelRatio || 1;
+    // Render above screen resolution so text stays sharp after the browser scales it down.
+    var ratio = Math.min(Math.max(window.devicePixelRatio || 1, 1) * 2, 4);
     var pages = [];
     for (var i = 1; i <= doc.numPages; i++) pages.push(doc.getPage(i));
     return Promise.all(pages).then(function (list) {
